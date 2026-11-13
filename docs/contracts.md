@@ -1,0 +1,5 @@
+# 资料及接口契约
+
+关系AST支持scan(alias,table)、inner/left等值复合join、filter及project；字段引用以alias和field绑定，不接受原始SQL。约束证书带table_digest、columns、kind、coverage=full及validated标志；只有绑定完全同一快照且全文验证通过的证书可用。unique证书null不参与唯一性，not_null独立，foreign_key还绑定目标列、目标digest以及实际无孤儿证据。表达式三值逻辑，重复行保留袋重数。elimination.py仅验证证书来源和AST引用，没有连接消除规则或执行计划。
+
+所有记录为合成仓资料；data/source.json保存原始字段和身份。storage.py负责摘要读取，table.py保存独立关系版本，relations.py保留SQL三值和袋语义。inspect只调用现有基础接口，不提供新增查询或管理能力。

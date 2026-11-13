@@ -1,0 +1,72 @@
+{
+  "tables": {
+    "facts": [
+      {
+        "row_id": "f1",
+        "carrier": "c1",
+        "hub": "h1"
+      },
+      {
+        "row_id": "f2",
+        "carrier": null,
+        "hub": "orphan"
+      }
+    ],
+    "carriers": [
+      {
+        "row_id": "c1",
+        "code": "c1"
+      }
+    ],
+    "hubs": [
+      {
+        "row_id": "h1",
+        "code": "h1"
+      },
+      {
+        "row_id": "h2",
+        "code": "h1"
+      }
+    ]
+  },
+  "claims": [
+    {
+      "table": "carriers",
+      "kind": "unique",
+      "columns": [
+        "code"
+      ]
+    },
+    {
+      "table": "hubs",
+      "kind": "unique",
+      "columns": [
+        "code"
+      ]
+    }
+  ],
+  "plan": {
+    "left": {
+      "scan": {
+        "table": "facts",
+        "alias": "f"
+      }
+    },
+    "right": {
+      "scan": {
+        "table": "carriers",
+        "alias": "c"
+      }
+    },
+    "kind": "left",
+    "on": [
+      [
+        "f.carrier",
+        "c.code"
+      ]
+    ],
+    "project": [
+      "f.row_id"
+    ]
+  }
+}
